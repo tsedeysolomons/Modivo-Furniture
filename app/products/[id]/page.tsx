@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useParams } from "next/navigation"
-import { useCart } from "@/contexts/cart-context"
+import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useCart } from "@/contexts/cart-context";
 import {
   Search,
   ShoppingCart,
@@ -17,21 +17,21 @@ import {
   Truck,
   Shield,
   RotateCcw,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function ProductDetailPage() {
-  const params = useParams()
-  const { state, addItem } = useCart()
-  const [quantity, setQuantity] = useState(1)
-  const [selectedImage, setSelectedImage] = useState(0)
-  const [selectedColor, setSelectedColor] = useState("beige")
-  const [selectedSize, setSelectedSize] = useState("standard")
+  const params = useParams();
+  const { state, addItem } = useCart();
+  const [quantity, setQuantity] = useState(1);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedColor, setSelectedColor] = useState("beige");
+  const [selectedSize, setSelectedSize] = useState("standard");
 
   // Mock product data - in real app this would come from API/database
   const product = {
@@ -79,7 +79,7 @@ export default function ProductDetailPage() {
       Assembly: "Minimal assembly required",
       Warranty: "5 years structural, 2 years fabric",
     },
-  }
+  };
 
   const reviews = [
     {
@@ -109,7 +109,7 @@ export default function ProductDetailPage() {
         "This sofa exceeded my expectations. The craftsmanship is excellent and it fits perfectly in my living room. Highly recommend!",
       verified: true,
     },
-  ]
+  ];
 
   const relatedProducts = [
     {
@@ -136,25 +136,27 @@ export default function ProductDetailPage() {
       rating: 4.5,
       reviews: 92,
     },
-  ]
+  ];
 
-  const currentPrice = product.price + (product.sizes.find((s) => s.name === selectedSize)?.price || 0)
-  const savings = product.originalPrice ? product.originalPrice - currentPrice : 0
+  const currentPrice =
+    product.price +
+    (product.sizes.find((s) => s.name === selectedSize)?.price || 0);
+  const savings = product.originalPrice
+    ? product.originalPrice - currentPrice
+    : 0;
 
   const handleAddToCart = () => {
-    addItem(
-      {
-        id: product.id,
-        name: product.name,
-        price: currentPrice,
-        image: product.images[0],
-        color: selectedColor,
-        size: selectedSize,
-        maxStock: product.stockCount,
-      },
-      { quantity },
-    )
-  }
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: currentPrice,
+      image: product.images[0],
+      color: selectedColor,
+      size: selectedSize,
+      maxStock: product.stockCount,
+      quantity,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -165,9 +167,13 @@ export default function ProductDetailPage() {
             {/* Logo */}
             <div className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-lg font-serif">M</span>
+                <span className="text-accent-foreground font-bold text-lg font-serif">
+                  M
+                </span>
               </div>
-              <span className="text-2xl font-bold font-serif text-foreground">Mogivo</span>
+              <span className="text-2xl font-bold font-serif text-foreground">
+                Mogivo
+              </span>
             </div>
 
             {/* Search Bar */}
@@ -225,7 +231,11 @@ export default function ProductDetailPage() {
                 alt={product.name}
                 className="w-full h-full object-cover"
               />
-              {product.isNew && <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">New</Badge>}
+              {product.isNew && (
+                <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
+                  New
+                </Badge>
+              )}
               <Button
                 variant="ghost"
                 size="icon"
@@ -268,28 +278,46 @@ export default function ProductDetailPage() {
               <div className="flex items-center gap-2 mb-2">
                 <div className="flex items-center">
                   <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  <span className="text-sm font-medium ml-1">{product.rating}</span>
+                  <span className="text-sm font-medium ml-1">
+                    {product.rating}
+                  </span>
                 </div>
-                <span className="text-sm text-muted-foreground">({product.reviews} reviews)</span>
+                <span className="text-sm text-muted-foreground">
+                  ({product.reviews} reviews)
+                </span>
                 <Badge variant="outline" className="ml-2">
                   {product.category}
                 </Badge>
               </div>
-              <h1 className="text-3xl font-bold font-serif text-foreground mb-4">{product.name}</h1>
-              <p className="text-muted-foreground leading-relaxed">{product.description}</p>
+              <h1 className="text-3xl font-bold font-serif text-foreground mb-4">
+                {product.name}
+              </h1>
+              <p className="text-muted-foreground leading-relaxed">
+                {product.description}
+              </p>
             </div>
 
             {/* Pricing */}
             <div className="space-y-2">
               <div className="flex items-center gap-3">
-                <span className="text-3xl font-bold text-foreground">${currentPrice}</span>
+                <span className="text-3xl font-bold text-foreground">
+                  ${currentPrice}
+                </span>
                 {product.originalPrice && (
-                  <span className="text-xl text-muted-foreground line-through">${product.originalPrice}</span>
+                  <span className="text-xl text-muted-foreground line-through">
+                    ${product.originalPrice}
+                  </span>
                 )}
-                {savings > 0 && <Badge className="bg-green-100 text-green-800">Save ${savings}</Badge>}
+                {savings > 0 && (
+                  <Badge className="bg-green-100 text-green-800">
+                    Save ${savings}
+                  </Badge>
+                )}
               </div>
               {product.inStock ? (
-                <p className="text-sm text-green-600">✓ In stock ({product.stockCount} available)</p>
+                <p className="text-sm text-green-600">
+                  ✓ In stock ({product.stockCount} available)
+                </p>
               ) : (
                 <p className="text-sm text-red-600">Out of stock</p>
               )}
@@ -298,7 +326,8 @@ export default function ProductDetailPage() {
             {/* Color Selection */}
             <div className="space-y-3">
               <h3 className="font-semibold text-foreground">
-                Color: {product.colors.find((c) => c.name === selectedColor)?.label}
+                Color:{" "}
+                {product.colors.find((c) => c.name === selectedColor)?.label}
               </h3>
               <div className="flex gap-3">
                 {product.colors.map((color) => (
@@ -306,7 +335,9 @@ export default function ProductDetailPage() {
                     key={color.name}
                     onClick={() => setSelectedColor(color.name)}
                     className={`w-10 h-10 rounded-full border-2 transition-colors ${
-                      selectedColor === color.name ? "border-accent border-4" : "border-border"
+                      selectedColor === color.name
+                        ? "border-accent border-4"
+                        : "border-border"
                     }`}
                     style={{ backgroundColor: color.hex }}
                     title={color.label}
@@ -330,7 +361,11 @@ export default function ProductDetailPage() {
                     }`}
                   >
                     <div className="text-sm font-medium">{size.label}</div>
-                    {size.price > 0 && <div className="text-xs text-muted-foreground">+${size.price}</div>}
+                    {size.price > 0 && (
+                      <div className="text-xs text-muted-foreground">
+                        +${size.price}
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
@@ -348,7 +383,9 @@ export default function ProductDetailPage() {
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
-                  <span className="px-4 py-2 min-w-[3rem] text-center">{quantity}</span>
+                  <span className="px-4 py-2 min-w-[3rem] text-center">
+                    {quantity}
+                  </span>
                   <Button
                     variant="ghost"
                     size="icon"
@@ -403,13 +440,17 @@ export default function ProductDetailPage() {
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="description">Description</TabsTrigger>
             <TabsTrigger value="specifications">Specifications</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews ({product.reviews})</TabsTrigger>
+            <TabsTrigger value="reviews">
+              Reviews ({product.reviews})
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="description" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold font-serif mb-4">Product Features</h3>
+                <h3 className="text-xl font-semibold font-serif mb-4">
+                  Product Features
+                </h3>
                 <ul className="space-y-3">
                   {product.features.map((feature, index) => (
                     <li key={index} className="flex items-start gap-3">
@@ -425,14 +466,23 @@ export default function ProductDetailPage() {
           <TabsContent value="specifications" className="mt-6">
             <Card>
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold font-serif mb-4">Specifications</h3>
+                <h3 className="text-xl font-semibold font-serif mb-4">
+                  Specifications
+                </h3>
                 <div className="grid gap-4">
-                  {Object.entries(product.specifications).map(([key, value]) => (
-                    <div key={key} className="flex justify-between py-2 border-b border-border last:border-0">
-                      <span className="font-medium text-foreground">{key}</span>
-                      <span className="text-muted-foreground">{value}</span>
-                    </div>
-                  ))}
+                  {Object.entries(product.specifications).map(
+                    ([key, value]) => (
+                      <div
+                        key={key}
+                        className="flex justify-between py-2 border-b border-border last:border-0"
+                      >
+                        <span className="font-medium text-foreground">
+                          {key}
+                        </span>
+                        <span className="text-muted-foreground">{value}</span>
+                      </div>
+                    )
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -445,25 +495,40 @@ export default function ProductDetailPage() {
                 <CardContent className="p-6">
                   <div className="flex items-center gap-6 mb-6">
                     <div className="text-center">
-                      <div className="text-4xl font-bold text-foreground">{product.rating}</div>
+                      <div className="text-4xl font-bold text-foreground">
+                        {product.rating}
+                      </div>
                       <div className="flex items-center justify-center mt-1">
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+                            className={`h-4 w-4 ${
+                              i < Math.floor(product.rating)
+                                ? "fill-yellow-400 text-yellow-400"
+                                : "text-gray-300"
+                            }`}
                           />
                         ))}
                       </div>
-                      <div className="text-sm text-muted-foreground mt-1">{product.reviews} reviews</div>
+                      <div className="text-sm text-muted-foreground mt-1">
+                        {product.reviews} reviews
+                      </div>
                     </div>
                     <div className="flex-1">
                       {[5, 4, 3, 2, 1].map((stars) => (
-                        <div key={stars} className="flex items-center gap-2 mb-1">
+                        <div
+                          key={stars}
+                          className="flex items-center gap-2 mb-1"
+                        >
                           <span className="text-sm w-8">{stars}★</span>
                           <div className="flex-1 h-2 bg-muted rounded-full">
                             <div
                               className="h-full bg-yellow-400 rounded-full"
-                              style={{ width: `${stars === 5 ? 70 : stars === 4 ? 20 : 10}%` }}
+                              style={{
+                                width: `${
+                                  stars === 5 ? 70 : stars === 4 ? 20 : 10
+                                }%`,
+                              }}
                             />
                           </div>
                           <span className="text-sm text-muted-foreground w-8">
@@ -492,7 +557,9 @@ export default function ProductDetailPage() {
                         </Avatar>
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
-                            <span className="font-semibold text-foreground">{review.name}</span>
+                            <span className="font-semibold text-foreground">
+                              {review.name}
+                            </span>
                             {review.verified && (
                               <Badge variant="outline" className="text-xs">
                                 Verified Purchase
@@ -504,13 +571,21 @@ export default function ProductDetailPage() {
                               {[...Array(5)].map((_, i) => (
                                 <Star
                                   key={i}
-                                  className={`h-4 w-4 ${i < review.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+                                  className={`h-4 w-4 ${
+                                    i < review.rating
+                                      ? "fill-yellow-400 text-yellow-400"
+                                      : "text-gray-300"
+                                  }`}
                                 />
                               ))}
                             </div>
-                            <span className="text-sm text-muted-foreground">{review.date}</span>
+                            <span className="text-sm text-muted-foreground">
+                              {review.date}
+                            </span>
                           </div>
-                          <p className="text-muted-foreground">{review.comment}</p>
+                          <p className="text-muted-foreground">
+                            {review.comment}
+                          </p>
                         </div>
                       </div>
                     </CardContent>
@@ -524,8 +599,13 @@ export default function ProductDetailPage() {
         {/* Related Products */}
         <section>
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold font-serif text-foreground">You May Also Like</h2>
-            <Button variant="outline" className="border-accent text-accent hover:bg-accent/10 bg-transparent">
+            <h2 className="text-2xl font-bold font-serif text-foreground">
+              You May Also Like
+            </h2>
+            <Button
+              variant="outline"
+              className="border-accent text-accent hover:bg-accent/10 bg-transparent"
+            >
               View All
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
@@ -556,15 +636,21 @@ export default function ProductDetailPage() {
                     <div className="flex items-center gap-2 mb-2">
                       <div className="flex items-center">
                         <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                        <span className="text-sm font-medium ml-1">{relatedProduct.rating}</span>
+                        <span className="text-sm font-medium ml-1">
+                          {relatedProduct.rating}
+                        </span>
                       </div>
-                      <span className="text-sm text-muted-foreground">({relatedProduct.reviews})</span>
+                      <span className="text-sm text-muted-foreground">
+                        ({relatedProduct.reviews})
+                      </span>
                     </div>
                     <h3 className="font-semibold text-card-foreground mb-2 group-hover:text-accent transition-colors">
                       {relatedProduct.name}
                     </h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-foreground">${relatedProduct.price}</span>
+                      <span className="text-lg font-bold text-foreground">
+                        ${relatedProduct.price}
+                      </span>
                     </div>
                   </div>
                 </CardContent>
@@ -590,5 +676,5 @@ export default function ProductDetailPage() {
         </section>
       </div>
     </div>
-  )
+  );
 }
