@@ -407,9 +407,11 @@ export default function ProductsPage() {
 
             {/* Navigation Icons */}
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="icon" className="hidden md:flex">
-                <User className="h-5 w-5" />
-              </Button>
+              <Link href="/login">
+                <Button variant="ghost" size="icon" className="flex">
+                  <User className="h-5 w-5" />
+                </Button>
+              </Link>
               <Link href="/cart">
                 <Button variant="ghost" size="icon" className="relative">
                   <ShoppingCart className="h-5 w-5" />
